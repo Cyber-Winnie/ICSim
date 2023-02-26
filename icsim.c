@@ -82,7 +82,7 @@ long map(long x, long in_min, long in_max, long out_min, long out_max)
 // returns point to data_files or NULL if append is too large
 char *get_data(char *fname) {
   if(strlen(DATA_DIR) + strlen(fname) > 255) return NULL;
-  strncpy(data_file, DATA_DIR, 255);
+  strcpy(data_file, DATA_DIR);
   strncat(data_file, fname, 255-strlen(data_file));
   return data_file;
 }
@@ -364,7 +364,7 @@ int main(int argc, char *argv[]) {
 
   addr.can_family = AF_CAN;
   memset(&ifr.ifr_name, 0, sizeof(ifr.ifr_name));
-  strncpy(ifr.ifr_name, argv[optind], strlen(argv[optind]));
+  strcpy(ifr.ifr_name, argv[optind]);
   printf("Using CAN interface %s\n", ifr.ifr_name);
   if (ioctl(can, SIOCGIFINDEX, &ifr) < 0) {
     perror("SIOCGIFINDEX");

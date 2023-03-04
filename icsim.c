@@ -81,7 +81,9 @@ long map(long x, long in_min, long in_max, long out_min, long out_max)
 // Uses a single pointer so not to have a memory leak
 // returns point to data_files or NULL if append is too large
 char *get_data(char *fname) {
-  if(strlen(DATA_DIR) + strlen(fname) > 255) return NULL;
+  if(strlen(DATA_DIR) + strlen(fname) > 255); //return NULL;
+  //Winnie I replaced strncpy to strcpy 
+  //I removed the return NULL 
   strcpy(data_file, DATA_DIR);
   strncat(data_file, fname, 255-strlen(data_file));
   return data_file;

@@ -77,7 +77,8 @@
 #define PS3_X_ROT 4
 #define PS3_Y_ROT 5
 #define PS3_Z_ROT 6 // The rotations are just guessed
-#define MAX_SPEED 90.0 // Limiter 260.0 is full guage speed
+#define MAX_SPEED 1000 // Winnie changed the speed limit
+ // Limiter 260.0 is full guage speed
 #define ACCEL_RATE 8.0 // 0-MAX_SPEED in seconds
 #define USB_CONTROLLER 0
 #define PS3_CONTROLLER 1
@@ -257,8 +258,18 @@ void checkAccel() {
 			if(current_speed < 1) current_speed = 0;
 		} else if(throttle > 0) {
 			current_speed += rate;
-			if(current_speed > MAX_SPEED) { // Limiter
+			//Winnie swapped places of the max-speed and current speed
+			if(MAX_SPEED > current_speed) { // Limiter
 				current_speed = MAX_SPEED;
+			//Winnie adds print statement 
+			    // Create an SDL text input field
+                SDL_StartTextInput();
+                // Redirect stdout to the SDL text input field
+                freopen("CONOUT$", "w", stdout);
+                // Print something using printf
+                printf("I have control of your car!!!\n");
+                // Stop the SDL text input field
+                SDL_StopTextInput();
 				if(gHaptic != NULL) {SDL_HapticRumblePlay( gHaptic, 0.5, 1000); printf("DEBUG HAPTIC\n"); }
 			}
 		}

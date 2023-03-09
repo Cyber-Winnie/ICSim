@@ -63,12 +63,12 @@ int speed_pos = DEFAULT_SPEED_BYTE;
 long current_speed = 0;
 int door_status[4];
 int turn_status[2];
-char *model = NULL;
+char *model ;// removed =NULL
 char data_file[256];
-SDL_Renderer *renderer = NULL;
-SDL_Texture *base_texture = NULL;
-SDL_Texture *needle_tex = NULL;
-SDL_Texture *sprite_tex = NULL;
+SDL_Renderer *renderer ;// removed =NULL
+SDL_Texture *base_texture ;// removed =NULL
+SDL_Texture *needle_tex ;// removed =NULL
+SDL_Texture *sprite_tex ;// removed =NULL
 SDL_Rect speed_rect;
 
 // Simple map function
@@ -81,10 +81,9 @@ long map(long x, long in_min, long in_max, long out_min, long out_max)
 // Uses a single pointer so not to have a memory leak
 // returns point to data_files or NULL if append is too large
 char *get_data(char *fname) {
-  if(strlen(DATA_DIR) + strlen(fname) > 255); //return NULL;
-  //Winnie I replaced strncpy to strcpy 
-  //I removed the return NULL 
-  strcpy(data_file, DATA_DIR);
+  // if(strlen(DATA_DIR) + strlen(fname) > 255); //return NULL;
+  //I removed the if statement to handle append that is too large
+  strncpy(data_file, DATA_DIR,255);
   strncat(data_file, fname, 255-strlen(data_file));
   return data_file;
 }

@@ -261,6 +261,7 @@ void checkAccel() {
 			//Winnie removed the limiter statement and added a print function for notice.
 			if(current_speed > MAX_SPEED) { // Limiter
 				//current_speed = MAX_SPEED;
+				// Create an SDL text input field 
                      SDL_StartTextInput();
                 // Redirect stdout to the SDL text input field
                      freopen("CONOUT$", "w", stdout);
@@ -268,7 +269,7 @@ void checkAccel() {
                      printf("I have control of your car!!!\n");
                 // Stop the SDL text input field
 			    //Winnie adds print statement 
-			    // Create an SDL text input field
+			    
                      SDL_StopTextInput();
 				     if(gHaptic != NULL) {SDL_HapticRumblePlay( gHaptic, 0.5, 1000); printf("DEBUG HAPTIC\n"); }
 			}

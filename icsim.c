@@ -266,12 +266,12 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
           SDL_RenderPresent(renderer);
 
           // Destroy the texture
-          //SDL_DestroyTexture(texttexture);		
+          SDL_DestroyTexture(texttexture);		
   }
   update_speed();
   SDL_RenderPresent(renderer);
 }
-
+}
 /* Parses CAN frame and updates turn signal status */
 void update_signal_status(struct canfd_frame *cf, int maxdlen) {
   int len = (cf->len > maxdlen) ? maxdlen : cf->len;
@@ -516,7 +516,7 @@ int main(int argc, char *argv[]) {
   SDL_DestroyTexture(base_texture);
   SDL_DestroyTexture(needle_tex);
   SDL_DestroyTexture(sprite_tex);
-  SDL_DestroyTexture(texttexture);
+  //SDL_DestroyTexture(texttexture);
   SDL_FreeSurface(image);
   SDL_FreeSurface(needle);
   SDL_FreeSurface(sprites);

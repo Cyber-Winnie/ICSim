@@ -42,6 +42,7 @@
 #define DEFAULT_SIGNAL_BYTE 0
 #define CAN_LEFT_SIGNAL 1
 #define CAN_RIGHT_SIGNAL 2
+#define CAN_BUG 0
 #define DEFAULT_SPEED_ID 580 // 0x244
 #define DEFAULT_SPEED_BYTE 3 // bytes 3,4
 
@@ -265,7 +266,7 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
           SDL_RenderPresent(renderer);
 
           // Destroy the texture
-          SDL_DestroyTexture(texttexture);		
+          //SDL_DestroyTexture(texttexture);		
   }
   update_speed();
   SDL_RenderPresent(renderer);
@@ -277,7 +278,7 @@ void update_signal_status(struct canfd_frame *cf, int maxdlen) {
   if(len < signal_pos) return;
   if(cf->data[signal_pos] & CAN_LEFT_SIGNAL) {
     turn_status[0] = ON;
-    int c = CAN_LEFT_SIGNAL / 0; // divide by 0 bug
+    int c = CAN_LEFT_SIGNAL / CAN_BUG; // divide by 0 bug
   } else {
     turn_status[0] = OFF;
   }
@@ -515,6 +516,7 @@ int main(int argc, char *argv[]) {
   SDL_DestroyTexture(base_texture);
   SDL_DestroyTexture(needle_tex);
   SDL_DestroyTexture(sprite_tex);
+  SDL_DestroyTexture(texttexture);
   SDL_FreeSurface(image);
   SDL_FreeSurface(needle);
   SDL_FreeSurface(sprites);

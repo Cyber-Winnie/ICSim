@@ -76,6 +76,7 @@ SDL_Renderer *renderer ;//= NULL;
 SDL_Texture *base_texture; //= NULL;
 SDL_Texture *needle_tex ;//= NULL;
 SDL_Texture *sprite_tex ;// =NULL;
+TTF_Font *font;
 SDL_Rect speed_rect;
 
 // Simple map function
@@ -253,20 +254,22 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
 	  speed = speed / 100; // speed in kilometers
 	  current_speed = speed * 0.6213751; // mph
     if(current_speed > MAX_SPEED) { // Limiter
-          TTF_Font* font = TTF_OpenFont("arial.ttf", 28);// fonr name 
-          SDL_Color textColor = { 255, 255, 255 };// white colour
-          SDL_Surface* textsurface = TTF_RenderText_Solid(font, "We have control of car!!", textColor);
-          SDL_Texture* texttexture = SDL_CreateTextureFromSurface(renderer, textsurface);
-          SDL_FreeSurface(textsurface);
-          TTF_CloseFont(font);
+        TTF_Init();  
+        TTF_Font* font = TTF_OpenFont("arial.ttf", 28);// fonr name 
+        SDL_Color textColor = { 255, 255, 255 };// white colour
+        SDL_Surface* textsurface = TTF_RenderText_Solid(font, "We have control of car!!", textColor);
+        SDL_Texture* texttexture = SDL_CreateTextureFromSurface(renderer, textsurface);
+        SDL_FreeSurface(textsurface);
+        TTF_CloseFont(font);
 
-          // Render the texture to the screen
-          SDL_RenderClear(renderer);
-          SDL_RenderCopy(renderer, texttexture, NULL, NULL);
-          SDL_RenderPresent(renderer);
+        // Render the texture to the screen
+        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, texttexture, NULL, NULL);
+        SDL_RenderPresent(renderer);
 
-          // Destroy the texture
-          SDL_DestroyTexture(texttexture);		
+        // Destroy the texture
+        SDL_DestroyTexture(texttexture);		
+        TTF_Quit();
   }
   update_speed();
   SDL_RenderPresent(renderer);

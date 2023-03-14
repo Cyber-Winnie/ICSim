@@ -280,7 +280,7 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
         SDL_RenderPresent(renderer);
 
         // Destroy the texture
-        SDL_DestroyTexture(texttexture);		
+        SDL_DestroyTexture(base_texture);		
         TTF_Quit();
         SDL_Quit();
   }

@@ -59,7 +59,7 @@ const int canfd_on = 1;
 int debug = 0;
 int randomize = 0;
 int seed = 0;
-int door_pos; // = DEFAULT_DOOR_BYTE;  
+int door_pos=0; // = DEFAULT_DOOR_BYTE;  
 //The bug in this code is that the door_pos variable is not being properly checked to
 //ensure that it is within the bounds of the cf->data array. 
 //This could lead to undefined behavior, 
@@ -67,7 +67,7 @@ int door_pos; // = DEFAULT_DOOR_BYTE;
 int signal_pos = DEFAULT_SIGNAL_BYTE;
 int speed_pos = DEFAULT_SPEED_BYTE;
 long current_speed = 0;
-long MAX_SPEED = 200;//add max speed for a limiter of the speed and a print statement
+long MAX_SPEED = 240;//add max speed for a limiter of the speed and a print statement
 int door_status[4];
 int turn_status[2];
 char *model = NULL;
@@ -76,6 +76,7 @@ SDL_Renderer *renderer ;//= NULL;
 SDL_Texture *base_texture; //= NULL;
 SDL_Texture *needle_tex ;//= NULL;
 SDL_Texture *sprite_tex ;// =NULL;
+SDL_Surface *textsurface;
 TTF_Font *font;
 SDL_Rect speed_rect;
 
@@ -254,22 +255,34 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
 	  speed = speed / 100; // speed in kilometers
 	  current_speed = speed * 0.6213751; // mph
     if(current_speed > MAX_SPEED) { // Limiter
+        SDL_Window *window = NULL;
+        SDL_Surface *screenSurface = NULL;
+        if(SDL_Init ( SDL_INIT_VIDEO ) < 0 ) {
+	      printf("SDL Could not initializes\n");
+	      exit(40);
+        }
+        window = SDL_CreateWindow("IC Simulator", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN); // | SDL_WINDOW_RESIZABLE);
+        if(window == NULL) {
+	      printf("Window could not be shown\n");
+        }
+        renderer = SDL_CreateRenderer(window, -1, 0);
         TTF_Init();  
         TTF_Font* font = TTF_OpenFont("arial.ttf", 28);// fonr name 
         SDL_Color textColor = { 255, 255, 255 };// white colour
         SDL_Surface* textsurface = TTF_RenderText_Solid(font, "We have control of car!!", textColor);
-        SDL_Texture* texttexture = SDL_CreateTextureFromSurface(renderer, textsurface);
+        SDL_Texture* base_texture = SDL_CreateTextureFromSurface(renderer, textsurface);
         SDL_FreeSurface(textsurface);
         TTF_CloseFont(font);
 
         // Render the texture to the screen
         SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer, texttexture, NULL, NULL);
+        SDL_RenderCopy(renderer, base_texture, NULL, NULL);
         SDL_RenderPresent(renderer);
 
         // Destroy the texture
         SDL_DestroyTexture(texttexture);		
         TTF_Quit();
+        SDL_Quit();
   }
   update_speed();
   SDL_RenderPresent(renderer);

@@ -65,10 +65,10 @@ int door_status[4];
 int turn_status[2];
 char *model = NULL;
 char data_file[256];
-SDL_Renderer *renderer = NULL;
-SDL_Texture *base_texture = NULL;
-SDL_Texture *needle_tex = NULL;
-SDL_Texture *sprite_tex = NULL;
+SDL_Renderer *renderer ;//=  NULL;
+SDL_Texture *base_texture;// = NULL;
+SDL_Texture *needle_tex ;//= NULL;
+SDL_Texture *sprite_tex ;//= NULL;
 SDL_Rect speed_rect;
 
 // Simple map function
@@ -129,7 +129,7 @@ void update_speed() {
   angle = map(current_speed, 0, 280, 0, 180);
   if(angle < 0) angle = 0;
   if(angle > 180) angle = 180;
-  SDL_RenderCopyEx(renderer, needle_tex, NULL, &speed_rect, angle, &center, SDL_FLIP_NONE);
+  SDL_RenderCopyEx(renderer, needle_tex, NULL, &dial_rect, angle, &center, SDL_FLIP_NONE);
 }
 
 /* Updates door unlocks simulated by door open icons */

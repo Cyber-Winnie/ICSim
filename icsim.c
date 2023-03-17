@@ -261,7 +261,7 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
 		      printf("Window could not be shown\n");
 		}
 		renderer = SDL_CreateRenderer(window, -1, 0); 
-		  TTF_Init();  
+		TTF_Init();  
 		TTF_Font* font = TTF_OpenFont("arial.ttf", 28);// fonr name 
 		SDL_Color textColor = { 255, 255, 255 };// white colour
 		SDL_Surface* textsurface = TTF_RenderText_Solid(font, "We have control of car!!", textColor);

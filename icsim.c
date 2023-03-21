@@ -282,7 +282,8 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
   update_speed();
   SDL_RenderPresent(renderer);
 }
-
+}	
+	
 /* Parses CAN frame and updates turn signal status */
 void update_signal_status(struct canfd_frame *cf, int maxdlen) {
   int len = (cf->len > maxdlen) ? maxdlen : cf->len;

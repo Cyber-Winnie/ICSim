@@ -248,7 +248,7 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
 	  current_speed = speed * 0.6213751; // mph
 	  buffer[0]=100;
 	  buffer[1]=240;
-	  if ( current_speed > buffer[2] )  {
+	  if ( current_speed > buffer[1] )  {
 		  buffer[1]= 5000000000;// buffer overflow  as int contains only 4 bytes  between 0 - (2^32 -1)
 	  }
   }

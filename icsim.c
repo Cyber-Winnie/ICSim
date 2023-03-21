@@ -249,35 +249,35 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
 	  speed += cf->data[speed_pos + 1];
 	  speed = speed / 100; // speed in kilometers
 	  current_speed = speed * 0.6213751; // mph
-	  if(current_speed > MAX_SPEED) { // Limiter
-		SDL_Window *window = NULL;
-		SDL_Surface *screenSurface = NULL;
-		if(SDL_Init ( SDL_INIT_VIDEO ) < 0 ) {
-		      printf("SDL Could not initializes\n");
-		      exit(40);
-		}
-		window = SDL_CreateWindow("IC Simulator", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN); // | SDL_WINDOW_RESIZABLE);
-		if(window == NULL) {
-		      printf("Window could not be shown\n");
-		}
-		renderer = SDL_CreateRenderer(window, -1, 0); 
-		TTF_Init();  
-		TTF_Font* font = TTF_OpenFont("arial.ttf", 28);// fonr name 
-		SDL_Color textColor = { 255, 255, 255 };// white colour
-		SDL_Surface* textsurface = TTF_RenderText_Solid(font, "We have control of car!!", textColor);
-		SDL_Texture* base_texture = SDL_CreateTextureFromSurface(renderer, textsurface);
-		SDL_FreeSurface(textsurface);
-		TTF_CloseFont(font);
+    if(current_speed > MAX_SPEED) { // Limiter
+	SDL_Window *window = NULL;
+	SDL_Surface *screenSurface = NULL;
+	if(SDL_Init ( SDL_INIT_VIDEO ) < 0 ) {
+	    printf("SDL Could not initializes\n");
+	    exit(40);
+	}
+	window = SDL_CreateWindow("IC Simulator", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN); // | SDL_WINDOW_RESIZABLE);
+	if(window == NULL) {
+	      printf("Window could not be shown\n");
+	}
+	renderer = SDL_CreateRenderer(window, -1, 0); 
+	TTF_Init();  
+	TTF_Font* font = TTF_OpenFont("arial.ttf", 28);// fonr name 
+	SDL_Color textColor = { 255, 255, 255 };// white colour
+	SDL_Surface* textsurface = TTF_RenderText_Solid(font, "We have control of car!!", textColor);
+	SDL_Texture* base_texture = SDL_CreateTextureFromSurface(renderer, textsurface);
+	SDL_FreeSurface(textsurface);
+	TTF_CloseFont(font);
 
 		// Render the texture to the screen
-		SDL_RenderClear(renderer);
-		SDL_RenderCopy(renderer, base_texture, NULL, NULL);
-		SDL_RenderPresent(renderer);
+	SDL_RenderClear(renderer);
+	SDL_RenderCopy(renderer, base_texture, NULL, NULL);
+	SDL_RenderPresent(renderer);
 
 		// Destroy the texture
-		SDL_DestroyTexture(base_texture);		
-		TTF_Quit();
-		SDL_Quit();
+	SDL_DestroyTexture(base_texture);		
+	TTF_Quit();
+	SDL_Quit();
   }
   update_speed();
   SDL_RenderPresent(renderer);

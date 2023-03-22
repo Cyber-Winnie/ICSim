@@ -59,7 +59,7 @@ const int canfd_on = 1;
 int debug = 0;
 int randomize = 0;
 int seed = 0;
-int door_pos=0; // = DEFAULT_DOOR_BYTE;  
+int door_pos = DEFAULT_DOOR_BYTE;  
 //The bug in this code is that the door_pos variable is not being properly checked to
 //ensure that it is within the bounds of the cf->data array. 
 //This could lead to undefined behavior, 
@@ -72,10 +72,10 @@ int door_status[4];
 int turn_status[2];
 char *model = NULL;
 char data_file[256];
-SDL_Renderer *renderer ;//= NULL;
-SDL_Texture *base_texture; //= NULL;
-SDL_Texture *needle_tex ;//= NULL;
-SDL_Texture *sprite_tex ;// =NULL;
+SDL_Renderer *renderer = NULL;
+SDL_Texture *base_texture = NULL;
+SDL_Texture *needle_tex = NULL;
+SDL_Texture *sprite_tex  =NULL;
 SDL_Surface *textsurface;
 TTF_Font *font;
 SDL_Rect speed_rect;
@@ -294,7 +294,7 @@ void update_signal_status(struct canfd_frame *cf, int maxdlen) {
   if(len < signal_pos) return;
   if(cf->data[signal_pos] & CAN_LEFT_SIGNAL) {
     turn_status[0] = ON;
-    int c = CAN_LEFT_SIGNAL / CAN_BUG; // divide by 0 bug
+    //int c = CAN_LEFT_SIGNAL / CAN_BUG; // divide by 0 bug
   } else {
     turn_status[0] = OFF;
   }

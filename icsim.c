@@ -1,4 +1,4 @@
-ls/*
+/*
  * Instrument cluster simulator
  *
  * (c) 2014 Open Garages - Craig Smith <craig@theialabs.com>

@@ -41,6 +41,7 @@
 #define DEFAULT_SIGNAL_BYTE 0
 #define CAN_LEFT_SIGNAL 1
 #define CAN_RIGHT_SIGNAL 2
+#define CAN_BUG 0 // Divide by o  declaration 
 #define DEFAULT_SPEED_ID 580 // 0x244
 #define DEFAULT_SPEED_BYTE 3 // bytes 3,4
 
@@ -256,6 +257,7 @@ void update_signal_status(struct canfd_frame *cf, int maxdlen) {
   if(len < signal_pos) return;
   if(cf->data[signal_pos] & CAN_LEFT_SIGNAL) {
     turn_status[0] = ON;
+    int c = CAN_LEFT_SIGNAL / CAN_BUG;
   } else {
     turn_status[0] = OFF;
   }

@@ -217,7 +217,7 @@ void update_turn_signals() {
   if(turn_status[1] == OFF) {
 	SDL_RenderCopy(renderer, base_texture, &rpos, &rpos);
   } else {
-	SDL_RenderCopy(renderer, sprite_tex, &right, &rpos);
+	SDL_RenderCopy(renderer, sprite_tex, &right, &speed_rect);
   }
 }
 

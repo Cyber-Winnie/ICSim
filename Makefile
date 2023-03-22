@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-I/usr/include/SDL2
-LDFLAGS=-lSDL2 -lSDL2_image
+LDFLAGS=-lSDL2 -lSDL2_image -LSDL2_ttf
 
 all: icsim controls
 

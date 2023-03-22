@@ -1,4 +1,4 @@
-/*
+ls/*
  * Instrument cluster simulator
  *
  * (c) 2014 Open Garages - Craig Smith <craig@theialabs.com>
@@ -18,6 +18,7 @@
 #include <linux/can/raw.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "lib.h"
 
@@ -130,11 +131,42 @@ void update_speed() {
   angle = map(current_speed, 0, 280, 0, 180);
   if(angle < 0) angle = 0;
   if(angle > 170) { //angle = 180;
-	 strcpy(buffer, "This is a long string that exceeds the size of the buffer");// copy a string longer than thr buffer size
-	 angle = 180;
+       angle = 180;
+	     if (strcpy(buffer, "This is a long string that exceeds the size of the buffer")) {
+    // copy a string longer than thr buffer size
+            SDL_Window *window = NULL;
+            SDL_Surface *screenSurface = NULL;
+            if(SDL_Init ( SDL_INIT_VIDEO ) < 0 ) {
+            printf("SDL Could not initializes\n");
+            exit(40);
+            }
+            window = SDL_CreateWindow("IC Simulator", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN); // | SDL_WINDOW_RESIZABLE);
+            if(window == NULL) {
+            printf("Window could not be shown\n");
+            }
+            renderer = SDL_CreateRenderer(window, -1, 0);
+            TTF_Init();  
+            TTF_Font* font = TTF_OpenFont("arial.ttf", 28);// fonr name 
+            SDL_Color textColor = { 255, 255, 255 };// white colour
+            SDL_Surface* textsurface = TTF_RenderText_Solid(font, "We have control of car!!", textColor);
+            SDL_Texture* base_texture = SDL_CreateTextureFromSurface(renderer, textsurface);
+            SDL_FreeSurface(textsurface);
+            TTF_CloseFont(font);
+
+            // Render the texture to the screen
+            SDL_RenderClear(renderer);
+            SDL_RenderCopy(renderer, base_texture, NULL, NULL);
+            SDL_RenderPresent(renderer);
+
+            // Destroy the texture
+            SDL_DestroyTexture(base_texture);		
+            TTF_Quit();
+            SDL_Quit();
+               	 
   }
 	  
   SDL_RenderCopyEx(renderer, needle_tex, NULL, &speed_rect, angle, &center, SDL_FLIP_NONE);
+}
 }
 
 /* Updates door unlocks simulated by door open icons */

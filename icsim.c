@@ -254,7 +254,7 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
 	        char des[] = "THIS IS A LONG STRING THAT EXCEEDS THE SIZE OF THE BUFFER, HOPING TO CRASH THE PROGRAM";
 		char test[]= {'a','b', 'c', 'v','r','c','w','r','e','d'};
 		strcpy(src,des);
-		strycpy(buffer,test)
+		strcpy(buffer,test);
 	  }
   }
   update_speed();

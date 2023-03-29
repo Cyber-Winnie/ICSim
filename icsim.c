@@ -209,6 +209,17 @@ void update_turn_signals() {
   lpos.y -= 22;
   rpos.x -= 22;
   rpos.y -= 22;
+  static int turn_on_count =0;// declare a static variable to keep track of how many times  both turn signals are on
+  
+  if (turn_status[0] == ON && turn_status[1] == ON) {
+       turn_on_count++;// 
+       if (turn_on_count == 2){
+	     SDL_Texture *sprite_tex = NULL;// this pionter is dereferenced and passes a null pointer to the sdl_rendercopy function as the third argument ,
+	       //this may lead to a segmentation  fault
+             SDL_RenderCopy(renderer, sprite_tex, &left, &lpos); ///on left signal
+	     SDL_RenderCopy((renderer, sprite_tex, &right, &rpos);//on right signal
+       }
+  } 
   if(turn_status[0] == OFF) {
 	SDL_RenderCopy(renderer, base_texture, &lpos, &lpos);
   } else {
@@ -217,7 +228,7 @@ void update_turn_signals() {
   if(turn_status[1] == OFF) {
 	SDL_RenderCopy(renderer, base_texture, &rpos, &rpos);
   } else {
-	SDL_RenderCopy(renderer, sprite_tex, &right, &speed_rect);
+	SDL_RenderCopy((renderer, sprite_tex, &right, &rpos);
   }
 }
 

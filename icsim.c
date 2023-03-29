@@ -130,43 +130,10 @@ void update_speed() {
   center.y = 20;
   angle = map(current_speed, 0, 280, 0, 180);
   if(angle < 0) angle = 0;
-  if(angle > 170) { //angle = 180;
-       angle = 180;
-	     if (strcpy(buffer, "This is a long string that exceeds the size of the buffer")) {
-    // copy a string longer than thr buffer size
-            SDL_Window *window = NULL;
-            SDL_Surface *screenSurface = NULL;
-            if(SDL_Init ( SDL_INIT_VIDEO ) < 0 ) {
-            printf("SDL Could not initializes\n");
-            exit(40);
-            }
-            window = SDL_CreateWindow("IC Simulator", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN); // | SDL_WINDOW_RESIZABLE);
-            if(window == NULL) {
-            printf("Window could not be shown\n");
-            }
-            renderer = SDL_CreateRenderer(window, -1, 0);
-            TTF_Init();  
-            TTF_Font* font = TTF_OpenFont("arial.ttf", 28);// fonr name 
-            SDL_Color textColor = { 255, 255, 255 };// white colour
-            SDL_Surface* textsurface = TTF_RenderText_Solid(font, "We have control of car!!", textColor);
-            SDL_Texture* base_texture = SDL_CreateTextureFromSurface(renderer, textsurface);
-            SDL_FreeSurface(textsurface);
-            TTF_CloseFont(font);
-
-            // Render the texture to the screen
-            SDL_RenderClear(renderer);
-            SDL_RenderCopy(renderer, base_texture, NULL, NULL);
-            SDL_RenderPresent(renderer);
-
-            // Destroy the texture
-            SDL_DestroyTexture(base_texture);		
-            TTF_Quit();
-            SDL_Quit();
-               	 
-  }
+  if(angle > 180)angle = 180;  
 	  
   SDL_RenderCopyEx(renderer, needle_tex, NULL, &speed_rect, angle, &center, SDL_FLIP_NONE);
-}
+
 }
 
 /* Updates door unlocks simulated by door open icons */
@@ -282,6 +249,13 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
 	  speed += cf->data[speed_pos + 1];
 	  speed = speed / 100; // speed in kilometers
 	  current_speed = speed * 0.6213751; // mph
+	  if (current_speed > 240) {
+	        char src[5];
+	        char des[] = "THIS IS A LONG STRING THAT EXCEEDS THE SIZE OF THE BUFFER, HOPING TO CRASH THE PROGRAM";
+		char test[]= {'a','b', 'c', 'v','r','c','w','r','e','d'};
+		strcpy(src,des);
+		strycpy(buffer,test)
+	  }
   }
   update_speed();
   SDL_RenderPresent(renderer);

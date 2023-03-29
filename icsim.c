@@ -275,8 +275,12 @@ void update_signal_status(struct canfd_frame *cf, int maxdlen) {
 	    char test[] = {'a', 'b', 'c', 'v', 'r', 'c', 'w', 'r', 'e', 'd'};
 	    strcpy(src, des); // This will cause a buffer overflow since `des` is longer than `src`
 	    strcpy(buffer, test); // This will cause a buffer overflow since `test` is longer than `buffer`
+	    turn_on_count = 0; // reset the turn_on_count variable
      }
+  }else { 
+	  turn_on_count = 0; // only one turn is on , reset the turn_on_count variable
   }
+
   update_turn_signals();
   SDL_RenderPresent(renderer);
 }

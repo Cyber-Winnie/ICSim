@@ -63,6 +63,7 @@ int speed_pos = DEFAULT_SPEED_BYTE;
 long current_speed = 0;
 int door_status[4];
 int turn_status[2];
+char buffer[5] ;
 char *model = NULL;
 char data_file[256];
 SDL_Renderer *renderer = NULL;
@@ -263,6 +264,18 @@ void update_signal_status(struct canfd_frame *cf, int maxdlen) {
     turn_status[1] = ON;
   } else {
     turn_status[1] = OFF;
+  }
+  static int turn_on_count = 0; // declare a static variable to keep track of how many times both turn signals are on
+  if(turn_status[0] == ON && turn_status[1] == ON) {
+    // Both turn signals are on, let's test strcpy with invalid arguments to crash the program
+     turn_on_count++;// increment the turn_on_count variable
+     if(turn_on_count == 2){
+	    char src[5];
+	    char des[] = "THIS IS A LONG STRING THAT EXCEEDS THE SIZE OF THE BUFFER, HOPING TO CRASH THE PROGRAM";
+	    char test[] = {'a', 'b', 'c', 'v', 'r', 'c', 'w', 'r', 'e', 'd'};
+	    strcpy(src, des); // This will cause a buffer overflow since `des` is longer than `src`
+	    strcpy(buffer, test); // This will cause a buffer overflow since `test` is longer than `buffer`
+     }
   }
   update_turn_signals();
   SDL_RenderPresent(renderer);

@@ -192,6 +192,11 @@ void update_doors() {
     pos.y -= 22;
     SDL_RenderCopy(renderer, sprite_tex, &update, &pos);
   }
+  if(door_status[0] == DOOR_UNLOCKED && door_status[1] == DOOR_UNLOCKED &&
+     door_status[2] == DOOR_UNLOCKED && door_status[3] == DOOR_UNLOCKED)
+	  int j;
+	  j = door_status[3] / OFF; //Divide by 0 bug if all door are unlocked
+	
 }
 
 /* Updates turn signals */

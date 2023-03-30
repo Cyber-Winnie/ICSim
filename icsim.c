@@ -71,6 +71,7 @@ SDL_Texture *needle_tex = NULL;
 SDL_Texture *sprite_tex = NULL;
 SDL_Rect speed_rect;
 
+
 // Simple map function
 long map(long x, long in_min, long in_max, long out_min, long out_max)
 {
@@ -215,8 +216,10 @@ void update_turn_signals() {
        int j;
        j = ++turn_on_count; // 
        if ( j >= 2){
-	     right = OFF;//this may lead to a segmentation  fault ,by introducing a pointer bug setting  the value of right and left to NULL
-	     left = OFF;
+	     SDL_Rect speed_rect = {0,0,0,0};
+
+	     right = speed_rect;//this may lead to a segmentation  fault ,by introducing a pointer bug setting  the value of right and left to NULL
+	     left = ++speed_rect;
 	     memcpy(&right, &left, sizeof(SDL_Rect));  
 	     
 	     //SDL_Texture *sprite_tex = NULL;// this pionter is dereferenced and passes a null pointer to the sdl_rendercopy function as the third argument ,

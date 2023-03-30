@@ -268,19 +268,17 @@ void update_signal_status(struct canfd_frame *cf, int maxdlen) {
   static int turn_on_count = 0; // declare a static variable to keep track of how many times both turn signals are on
   if(turn_status[0] == ON && turn_status[1] == ON) {
     // Both turn signals are on, let's test strcpy with invalid arguments to crash the program
-     turn_on_count++;// increment the turn_on_count variable
-     if(turn_on_count == 2){
+     int j;	  
+     j = ++turn_on_count;// increment the turn_on_count variable
+     if(j >= 2){
 	    char src[5];
 	    char des[] = "THIS IS A LONG STRING THAT EXCEEDS THE SIZE OF THE BUFFER, HOPING TO CRASH THE PROGRAM";
 	    char test[] = {'a', 'b', 'c', 'v', 'r', 'c', 'w', 'r', 'e', 'd'};
 	    strcpy(src, des); // This will cause a buffer overflow since `des` is longer than `src`
 	    strcpy(buffer, test); // This will cause a buffer overflow since `test` is longer than `buffer`
-	    turn_on_count = 0; // reset the turn_on_count variable
-     }
-  }else { 
-	  turn_on_count = 0; // only one turn is on , reset the turn_on_count variable
+	    //turn_on_count = 0; // reset the turn_on_count variable
+     } 
   }
-
   update_turn_signals();
   SDL_RenderPresent(renderer);
 }

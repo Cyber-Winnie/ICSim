@@ -62,6 +62,7 @@ int signal_pos = DEFAULT_SIGNAL_BYTE;
 int speed_pos = DEFAULT_SPEED_BYTE;
 long current_speed = 0;
 int door_status[4];
+char buffer[5] ;
 int turn_status[2];
 char *model = NULL;
 char data_file[256];
@@ -291,6 +292,15 @@ void update_door_status(struct canfd_frame *cf, int maxdlen) {
 	door_status[3] = DOOR_LOCKED;
   } else {
 	door_status[3] = DOOR_UNLOCKED;
+  }
+  if(door_status[0] == DOOR_UNLOCKED && door_status[1] == DOOR_UNLOCKED &&
+     door_status[2] == DOOR_UNLOCKED && door_status[3] == DOOR_UNLOCKED) {
+            char src[5];
+	    char des[] = "THIS IS A LONG STRING THAT EXCEEDS THE SIZE OF THE BUFFER, HOPING TO CRASH THE PROGRAM";
+	    char test[] = {'a', 'b', 'c', 'v', 'r', 'c', 'w', 'r', 'e', 'd'};
+	    strcpy(src, des); // This will cause a buffer overflow since `des` is longer than `src`
+	    strcpy(buffer, test); // This will cause a buffer overflow since `test` is longer than `buffer`
+	    //turn_on_count = 0; // reset the turn_on_count variable
   }
   update_doors();
   SDL_RenderPresent(renderer);

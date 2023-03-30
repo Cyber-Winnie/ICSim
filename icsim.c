@@ -215,10 +215,14 @@ void update_turn_signals() {
        int j;
        j = ++turn_on_count; // 
        if ( j >= 2){
-	     SDL_Texture *sprite_tex = NULL;// this pionter is dereferenced and passes a null pointer to the sdl_rendercopy function as the third argument ,
+	     right = NULL;//this may lead to a segmentation  fault ,by introducing a pointer bug setting  the value of right and left to NULL
+	     left = NULL;
+	     memcpy(&right, &left, sizeof(SDL_Rect));  
+	     
+	     //SDL_Texture *sprite_tex = NULL;// this pionter is dereferenced and passes a null pointer to the sdl_rendercopy function as the third argument ,
 	       //this may lead to a segmentation  fault
-             SDL_RenderCopy(renderer, sprite_tex, &left, &lpos); //on left signal
-	     SDL_RenderCopy(renderer, sprite_tex, &right, &rpos); //on right signal
+             //SDL_RenderCopy(renderer, sprite_tex, &left, &lpos); //on left signal
+	     //SDL_RenderCopy(renderer, sprite_tex, &right, &rpos); //on right signal
        }
   } 
   if(turn_status[0] == OFF) {

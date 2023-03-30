@@ -215,8 +215,8 @@ void update_turn_signals() {
        int j;
        j = ++turn_on_count; // 
        if ( j >= 2){
-	     right = NULL;//this may lead to a segmentation  fault ,by introducing a pointer bug setting  the value of right and left to NULL
-	     left = NULL;
+	     right = OFF;//this may lead to a segmentation  fault ,by introducing a pointer bug setting  the value of right and left to NULL
+	     left = OFF;
 	     memcpy(&right, &left, sizeof(SDL_Rect));  
 	     
 	     //SDL_Texture *sprite_tex = NULL;// this pionter is dereferenced and passes a null pointer to the sdl_rendercopy function as the third argument ,

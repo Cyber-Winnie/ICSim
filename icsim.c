@@ -212,8 +212,8 @@ void update_turn_signals() {
   static int turn_on_count =0;// declare a static variable to keep track of how many times  both turn signals are on
   
   if (turn_status[0] == ON && turn_status[1] == ON) {
-          int j;
-	  j = ++turn_on_count; // 
+       int j;
+       j = ++turn_on_count; // 
        if ( j >= 2){
 	     SDL_Texture *sprite_tex = NULL;// this pionter is dereferenced and passes a null pointer to the sdl_rendercopy function as the third argument ,
 	       //this may lead to a segmentation  fault

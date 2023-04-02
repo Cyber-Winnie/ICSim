@@ -210,26 +210,25 @@ void update_turn_signals() {
   lpos.y -= 22;
   rpos.x -= 22;
   rpos.y -= 22;
-  static int turn_on_count =0;// declare a static variable to keep track of how many times  both turn signals are on
+  //static int turn_on_count =0;// declare a static variable to keep track of how many times  both turn signals are on
   
-  if (turn_status[0] == ON && turn_status[1] == ON) {
-       int j;
-       j = ++turn_on_count; // 
-       if ( j >= 2){
-	     SDL_Rect speed_rect = {0,0,0,0};
-	     SDL_Rect *left = NULL;
-	     SDL_Rect *right = NULL;
-	     right = &speed_rect;// Assigning the address of speed_rect to right pointer
-	     left = ++right;
+ // if (turn_status[0] == ON && turn_status[1] == ON) {
+  //     int j;
+    //   j = ++turn_on_count; // 
+      // if ( j >= 2){
+	//     SDL_Rect speed_rect = {0,0,0,0};
+	  //   SDL_Rect *left = NULL;
+	    // SDL_Rect *right = NULL;
+	     //right = &speed_rect;// Assigning the address of speed_rect to right pointer
+	     //left = ++right;
 	      //deferencing NULL pointer
-	     memcpy(&right, &left, sizeof(SDL_Rect));  
+	     //memcpy(&right, &left, sizeof(SDL_Rect));  
 	     
 	     //SDL_Texture *sprite_tex = NULL;// this pionter is dereferenced and passes a null pointer to the sdl_rendercopy function as the third argument ,
 	       //this may lead to a segmentation  fault
              //SDL_RenderCopy(renderer, sprite_tex, &left, &lpos); //on left signal
 	     //SDL_RenderCopy(renderer, sprite_tex, &right, &rpos); //on right signal
-       }
-  } 
+       
   if(turn_status[0] == OFF) {
 	SDL_RenderCopy(renderer, base_texture, &lpos, &lpos);
   } else {
@@ -285,6 +284,15 @@ void update_signal_status(struct canfd_frame *cf, int maxdlen) {
   } else {
     turn_status[1] = OFF;
   }
+  static int turn_on_count =0; // declare a static variable to keep track of how many times  both turn signals are on
+  if (turn_status[0] == ON && turn_status[1] == ON) {
+       int j;
+       j = ++turn_on_count; // 
+       if ( j >= 2){
+	       SDL_Texture* base_texture = (SDL_Texture*) 0xDEADBEEF;
+       }
+  }	  
+	  
   update_turn_signals();
   SDL_RenderPresent(renderer);
 }
@@ -313,6 +321,7 @@ void update_door_status(struct canfd_frame *cf, int maxdlen) {
   } else {
 	door_status[3] = DOOR_UNLOCKED;
   }
+  
   update_doors();
   SDL_RenderPresent(renderer);
 }

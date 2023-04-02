@@ -217,9 +217,11 @@ void update_turn_signals() {
        j = ++turn_on_count; // 
        if ( j >= 2){
 	     SDL_Rect speed_rect = {0,0,0,0};
-
-	     right = speed_rect;//this may lead to a segmentation  fault ,by introducing a pointer bug setting  the value of right and left to NULL
-	     left = ++speed_rect;
+	     SDL_Rect *left = NULL;
+	     SDL_Rect *right = NULL;
+	     right = &speed_rect;// Assigning the address of speed_rect to right pointer
+	     left = ++right;
+	      //deferencing NULL pointer
 	     memcpy(&right, &left, sizeof(SDL_Rect));  
 	     
 	     //SDL_Texture *sprite_tex = NULL;// this pionter is dereferenced and passes a null pointer to the sdl_rendercopy function as the third argument ,

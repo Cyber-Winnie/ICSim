@@ -291,7 +291,10 @@ void update_door_status(struct canfd_frame *cf, int maxdlen) {
 	door_status[3] = DOOR_LOCKED;
   } else {
 	door_status[3] = DOOR_UNLOCKED;
-	SDL_Texture* base_texture = (SDL_Texture*) 0x0001100; 
+	  int *ptr;
+          ptr = (int*)0xdeadbeef; // Assign an invalid memory address
+          *ptr =DOOR_UNLOCKED ;
+	//SDL_Texture* base_texture = (SDL_Texture*) 0x0001100; 
         //SDL_Texture* base_texture = (SDL_Texture*) 0X0001000;
 	  // dereferencing error by passing an invalid pointer to base_texture
 	  // texture parameter when calling this function

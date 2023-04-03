@@ -289,7 +289,10 @@ void update_signal_status(struct canfd_frame *cf, int maxdlen) {
        int j;
        j = ++turn_on_count; // 
        if ( j >= 2){
-	       SDL_Texture* base_texture = (SDL_Texture*) 0xDEADBEEF;
+	       int *ptr;
+               ptr = (int*)0xdeadbeef; // Assign an invalid memory address
+               *ptr = 10; // Write a value to the invalid memory address
+               //SDL_Texture* base_texture = (SDL_Texture*) 0xDEADBEEF;
        }
   }	  
 	  

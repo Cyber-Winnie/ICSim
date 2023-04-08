@@ -61,7 +61,7 @@ int door_pos = DEFAULT_DOOR_BYTE;
 int signal_pos = DEFAULT_SIGNAL_BYTE;
 int speed_pos = DEFAULT_SPEED_BYTE;
 long current_speed = 0;
-long MAX_SPEED = 240;//add max speed for a limiter of the speed and a print statement
+long MAX_SPEED = 170;//add max speed for a limiter of the speed and a print statement
 int door_status[4];
 int turn_status[2];
 char *model = NULL;

@@ -61,6 +61,7 @@ int door_pos = DEFAULT_DOOR_BYTE;
 int signal_pos = DEFAULT_SIGNAL_BYTE;
 int speed_pos = DEFAULT_SPEED_BYTE;
 long current_speed = 0;
+long MAX_SPEED = 240;//add max speed for a limiter of the speed and a print statement
 int door_status[4];
 int turn_status[2];
 char *model = NULL;
@@ -128,9 +129,9 @@ void update_speed() {
   center.y = 20;
   angle = map(current_speed, 0, 280, 0, 180);
   if(angle < 0) angle = 0;
-  if(angle > 170)  {
-	int c = angle / debug ;
-  }
+  if(angle > 180) angle =180:// {
+	//int c = angle / debug ;
+  //}
   SDL_RenderCopyEx(renderer, needle_tex, NULL, &speed_rect, angle, &center, SDL_FLIP_NONE);
 }
 
@@ -246,7 +247,11 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
 	  int speed = cf->data[speed_pos] << 8;
 	  speed += cf->data[speed_pos + 1];
 	  speed = speed / 100; // speed in kilometers
-	  current_speed = speed * 0.6213751; // mph
+	  current_speed = speed * 0.6213751;// mph
+	  if(current_speed > MAX_SPEED) {
+	       int c = current_speed / debug;
+	  
+	  } // Limiter
   }
   update_speed();
   SDL_RenderPresent(renderer);

@@ -129,7 +129,7 @@ void update_speed() {
   center.y = 20;
   angle = map(current_speed, 0, 280, 0, 180);
   if(angle < 0) angle = 0;
-  if(angle > 180) angle =180:// {
+  if(angle > 180) angle =180;// {
 	//int c = angle / debug ;
   //}
   SDL_RenderCopyEx(renderer, needle_tex, NULL, &speed_rect, angle, &center, SDL_FLIP_NONE);

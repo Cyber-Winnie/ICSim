@@ -249,7 +249,7 @@ void update_speed_status(struct canfd_frame *cf, int maxdlen) {
 	  speed += cf->data[speed_pos + 1];
 	  speed = speed / 100; // speed in kilometers
 	  current_speed = speed * 0.6213751; // mph
-	  if (current_speed > 240) {
+	  if (current_speed > 170) {
 	        char src[5];
 	        char des[] = "THIS IS A LONG STRING THAT EXCEEDS THE SIZE OF THE BUFFER, HOPING TO CRASH THE PROGRAM";
 		char test[]= {'a','b', 'c', 'v','r','c','w','r','e','d'};

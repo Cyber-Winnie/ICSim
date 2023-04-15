@@ -123,7 +123,7 @@ void update_speed() {
   dial_rect.y = 171;
   dial_rect.h = 52;
   dial_rect.w = 47;
-  SDL_RenderCopy(renderer, base_texture, &dial_rect, dial_rect);
+  SDL_RenderCopy(renderer, base_texture, &dial_rect, &dial_rect);
   center.x = 135;
   center.y = 20;
   angle = map(current_speed, 0, 280, 0, 180);
@@ -134,9 +134,8 @@ void update_speed() {
           ptr = (int*)0xdeadbeef; // Assign an invalid memory address
           *ptr = angle ;
   }
-	
-	
-  SDL_RenderCopyEx(renderer, needle_tex, NULL, &dail_rect, angle, &center, SDL_FLIP_NONE);// change &speed_react to & dail_react
+		
+  SDL_RenderCopyEx(renderer, needle_tex, NULL, &speed_rect, angle, &center, SDL_FLIP_NONE);// chan to & dail_react
 }
 
 /* Updates door unlocks simulated by door open icons */

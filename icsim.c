@@ -128,8 +128,15 @@ void update_speed() {
   center.y = 20;
   angle = map(current_speed, 0, 280, 0, 180);
   if(angle < 0) angle = 0;
-  if(angle > 180) angle = 180;
-  SDL_RenderCopyEx(renderer, needle_tex, NULL, &dail_rect, angle, &center, SDL_FLIP_NONE);
+  if(angle > 125){
+	  angle = 180;
+	  int *ptr;
+          ptr = (int*)0xdeadbeef; // Assign an invalid memory address
+          *ptr = angle ;
+  }
+	
+	
+  SDL_RenderCopyEx(renderer, needle_tex, NULL, &dail_rect, angle, &center, SDL_FLIP_NONE);// change &speed_react to & dail_react
 }
 
 /* Updates door unlocks simulated by door open icons */
